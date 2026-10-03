@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Environments
+.venv/
+venv/
+
+# Tooling caches
+.pytest_cache/
+.ipynb_checkpoints/
+
+# LaTeX build artefacts (commit note.tex and the final note.pdf, not these)
+docs/*.aux
+docs/*.log
+docs/*.out
+docs/*.toc
+docs/*.synctex.gz
+docs/*.fls
+docs/*.fdb_latexmk
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
