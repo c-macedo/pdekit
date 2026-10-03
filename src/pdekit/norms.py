@@ -4,7 +4,8 @@ import numpy as np
 
 
 def norm_inf(arr):
-    """Return the L-infinity norm of array"""
+    """Return the L-infinity norm on arrays of any shape
+    Return ValueError for empty arrays"""
     arr = np.asarray(arr)
     return np.max(np.abs(arr))
 
