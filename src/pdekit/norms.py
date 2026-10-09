@@ -6,15 +6,26 @@ import numpy as np
 def norm_inf(arr):
     """Return the L-infinity norm on arrays of any shape
     Raise ValueError for empty arrays"""
-    arr = np.asarray(arr)
-    return np.max(np.abs(arr))
 
-def norm_l2(arr, cell_volume):
-    """Return L-2 norm on arrays of any shape, Cell volume is h in 1D and dx * dy in 2D
-    Raise ValueError for empty arrays and invalid cell volume"""
     arr = np.asarray(arr)
     if arr.size == 0:
-        raise ValueError("Empty matrix given")
-    if cell_volume <= 0:
-        raise ValueError("Invalid cell volume given")
-    return np.sqrt(cell_volume * np.sum(arr**2))
+        raise ValueError("empty matrix given")
+    return np.max(np.abs(arr))
+
+def norm_l2(arr, h):
+    """Return L-2 norm on arrays of any shape, Cell volume is h in 1D and dx * dy in 2D
+    Raise ValueError for empty arrays and invalid cell volume"""
+
+    arr = np.asarray(arr)
+    weights = np.atleast_1d(h)
+
+    if weights.ndim != 1:
+        raise ValueError(f"weights must be 1D, got shape {weights.shape}")
+    if weights.size != arr.ndim:
+        raise ValueError(f"tuple size ({weights.size}) doesn't match array dimension ({arr.ndim})")
+    if np.all(weights <= 0):
+        raise ValueError("expected positive values, got at least 1 non-positive")
+    if arr.size == 0:
+        raise ValueError("empty matrix given")
+    
+    return np.sqrt(np.prod(weights) * np.sum(arr**2))
